@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuwenchao.mapper.FirstEmpMapper">
+  <resultMap id="BaseResultMap" type="com.yuwenchao.bean.FirstEmp">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="first_name" jdbcType="VARCHAR" property="firstName" />
+    <result column="first_gender" jdbcType="VARCHAR" property="firstGender" />
+    <result column="first_age" jdbcType="INTEGER" property="firstAge" />
+    <result column="first_email" jdbcType="VARCHAR" property="firstEmail" />
+    <result column="first_phone" jdbcType="VARCHAR" property="firstPhone" />
+    <result column="first_address" jdbcType="VARCHAR" property="firstAddress" />
+    <result column="first_salary" jdbcType="DOUBLE" property="firstSalary" />
+    <result column="d_id" jdbcType="VARCHAR" property="dId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, first_name, first_gender, first_age, first_email, first_phone, first_address, 
+    first_salary, d_id
+  </sql>
+  <select id="selectByExample" parameterType="com.yuwenchao.bean.FirstEmpExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from first_emp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from first_emp
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from first_emp
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yuwenchao.bean.FirstEmpExample">
+    delete from first_emp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yuwenchao.bean.FirstEmp">
+    insert into first_emp (id, first_name, first_gender, 
+      first_age, first_email, first_phone, 
+      first_address, first_salary, d_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{firstName,jdbcType=VARCHAR}, #{firstGender,jdbcType=VARCHAR}, 
+      #{firstAge,jdbcType=INTEGER}, #{firstEmail,jdbcType=VARCHAR}, #{firstPhone,jdbcType=VARCHAR}, 
+      #{firstAddress,jdbcType=VARCHAR}, #{firstSalary,jdbcType=DOUBLE}, #{dId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yuwenchao.bean.FirstEmp">
+    insert into first_emp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="firstName != null">
+        first_name,
+      </if>
+      <if test="firstGender != null">
+        first_gender,
+      </if>
+      <if test="firstAge != null">
+        first_age,
+      </if>
+      <if test="firstEmail != null">
+        first_email,
+      </if>
+      <if test="firstPhone != null">
+        first_phone,
+      </if>
+      <if test="firstAddress != null">
+        first_address,
+      </if>
+      <if test="firstSalary != null">
+        first_salary,
+      </if>
+      <if test="dId != null">
+        d_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="firstName != null">
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstGender != null">
+        #{firstGender,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAge != null">
+        #{firstAge,jdbcType=INTEGER},
+      </if>
+      <if test="firstEmail != null">
+        #{firstEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="firstPhone != null">
+        #{firstPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAddress != null">
+        #{firstAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="firstSalary != null">
+        #{firstSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="dId != null">
+        #{dId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yuwenchao.bean.FirstEmpExample" resultType="java.lang.Long">
+    select count(*) from first_emp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update first_emp
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstName != null">
+        first_name = #{record.firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstGender != null">
+        first_gender = #{record.firstGender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstAge != null">
+        first_age = #{record.firstAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstEmail != null">
+        first_email = #{record.firstEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstPhone != null">
+        first_phone = #{record.firstPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstAddress != null">
+        first_address = #{record.firstAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstSalary != null">
+        first_salary = #{record.firstSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="record.dId != null">
+        d_id = #{record.dId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update first_emp
+    set id = #{record.id,jdbcType=INTEGER},
+      first_name = #{record.firstName,jdbcType=VARCHAR},
+      first_gender = #{record.firstGender,jdbcType=VARCHAR},
+      first_age = #{record.firstAge,jdbcType=INTEGER},
+      first_email = #{record.firstEmail,jdbcType=VARCHAR},
+      first_phone = #{record.firstPhone,jdbcType=VARCHAR},
+      first_address = #{record.firstAddress,jdbcType=VARCHAR},
+      first_salary = #{record.firstSalary,jdbcType=DOUBLE},
+      d_id = #{record.dId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yuwenchao.bean.FirstEmp">
+    update first_emp
+    <set>
+      <if test="firstName != null">
+        first_name = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstGender != null">
+        first_gender = #{firstGender,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAge != null">
+        first_age = #{firstAge,jdbcType=INTEGER},
+      </if>
+      <if test="firstEmail != null">
+        first_email = #{firstEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="firstPhone != null">
+        first_phone = #{firstPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAddress != null">
+        first_address = #{firstAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="firstSalary != null">
+        first_salary = #{firstSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="dId != null">
+        d_id = #{dId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yuwenchao.bean.FirstEmp">
+    update first_emp
+    set first_name = #{firstName,jdbcType=VARCHAR},
+      first_gender = #{firstGender,jdbcType=VARCHAR},
+      first_age = #{firstAge,jdbcType=INTEGER},
+      first_email = #{firstEmail,jdbcType=VARCHAR},
+      first_phone = #{firstPhone,jdbcType=VARCHAR},
+      first_address = #{firstAddress,jdbcType=VARCHAR},
+      first_salary = #{firstSalary,jdbcType=DOUBLE},
+      d_id = #{dId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

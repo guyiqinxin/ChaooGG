@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuwenchao.mapper.FirstEmpVoMapper">
+    
+<select id="getAllEmp" parameterType="com.yuwenchao.iReport.vo.FirstEmpVo" resultType="com.yuwenchao.iReport.vo.FirstEmpVo" >
+SELECT a.id ,
+a.first_name firstName,
+a.first_age firstAge,
+a.first_gender firstGender,
+a.first_email firstEmail,
+a.first_phone firstPhone,
+a.first_address firstAddress,
+a.first_salary firstSalary,
+b.dept_name deptName,
+b.dept_nature deptNature
+FROM first_emp a ,first_dept b  WHERE a.d_id=b.dept_id
+</select>
+
+
+<!--  getAllEmpCondition(Integer id, String firstName, Integer firstAge, String firstGender,
+			String firstEmail, String firstPhone, String firstAddress, Double firstSalary, String deptName,
+			String deptNature); -->
+  <select id="getAllEmpCondition" parameterType="com.yuwenchao.iReport.vo.FirstEmpVo" resultType="com.yuwenchao.iReport.vo.FirstEmpVo" >
+SELECT a.id,
+a.first_name firstName,
+a.first_age firstAge,
+a.first_gender firstGender,
+a.first_email firstEmail,
+a.first_phone firstPhone,
+a.first_address firstAddress,
+a.first_salary firstSalary,
+b.dept_name deptName,
+b.dept_nature deptNature
+FROM first_emp a ,first_dept b  WHERE a.d_id=b.dept_id
+ <if test="id != null">
+    and a.id=#{id,jdbcType=INTEGER}
+</if>
+ <if test="firstAge != null">
+    and a.first_age=#{firstAge,jdbcType=INTEGER}
+</if> 
+<if test="firstGender != null and firstGender != ''" >
+    and a.first_gender=#{firstGender,jdbcType=VARCHAR}
+</if>
+<if test="firstPhone != null and firstPhone != ''" >
+    and a.first_phone=#{firstPhone,jdbcType=VARCHAR}
+</if>
+<if test="firstName!=null and firstName.trim()!=''">
+	and  a.first_name like concat('%',#{firstName,jdbcType=VARCHAR},'%') 
+</if>
+<if test="firstEmail!=null and firstEmail.trim()!=''">
+	and  a.first_email like concat('%',#{firstEmail,jdbcType=VARCHAR},'%') 
+</if>
+
+<if test="firstAddress!=null and firstAddress.trim()!=''">
+	and  a.first_address like concat('%',#{firstAddress,jdbcType=VARCHAR},'%') 
+</if>
+
+<if test="firstSalary!=null">
+	and  a.first_salary like concat('%',#{firstSalary,jdbcType=DOUBLE},'%')
+</if>
+
+<if test="deptName!=null and deptName.trim()!=''">
+	and  b.dept_name like concat('%',#{deptName,jdbcType=VARCHAR},'%')
+</if>
+
+<if test="deptNature!=null and deptNature.trim()!=''">
+	and  b.dept_nature like concat('%',#{deptNature,jdbcType=VARCHAR},'%')
+</if>
+
+</select> 
+   
+<select id="getAllEmpConditionone1" resultType="com.yuwenchao.iReport.vo.FirstEmpVo" >
+SELECT a.id ,
+a.first_name firstName,
+a.first_age firstAge,
+a.first_gender firstGender,
+a.first_email firstEmail,
+a.first_phone firstPhone,
+a.first_address firstAddress,
+a.first_salary firstSalary,
+b.dept_name deptName,
+b.dept_nature deptNature
+FROM first_emp a ,first_dept b  WHERE a.d_id=b.dept_id
+<if test="firstName!=null and firstName!=''">
+	and  a.first_name like concat('%',#{firstName},'%') 
+</if>
+<if test="firstEmail!=null and firstEmail!=''">
+	and  a.first_email like concat('%',#{firstEmail},'%') 
+</if>
+</select>
+   
+
+   
+   
+</mapper>

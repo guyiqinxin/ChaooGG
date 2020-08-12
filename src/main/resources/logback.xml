@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+  <!-- 指定日志输出的地方-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+                <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{360} - %msg%n</pattern>
+        </encoder>
+    </appender>
+ 
+  <!-- 日志：debug 
+  从低到高；只会打印指定级别以后的
+  DEBUG==》INFO===》WARN===》ERROR
+  additivity="false"：日志打印不往上个记录器扩散，所有记录器都是继承与root；
+  -->
+  <logger name="com.yuwenchao" level="debug" additivity="false">  
+     <appender-ref ref="STDOUT"/>  
+  </logger>
+
+
+  <!-- 使用logger精确指定某个包下的所有类的日志的级别了就用精确的，没有指定就用默认配置（root的配置） -->
+  <!-- 1、日志级别看精确、输出为各自（只有不往父级别扩散，才能只打印一层） -->
+  	
+  	<!-- 只有出现错误级别的日志才打印 -->
+   <root level="info">
+       <appender-ref ref="STDOUT" />
+   </root>
+</configuration> 
